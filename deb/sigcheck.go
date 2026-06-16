@@ -5,7 +5,7 @@ import (
 	"io"
 	"strings"
 
-	"golang.org/x/crypto/openpgp"
+	"github.com/ProtonMail/go-crypto/openpgp"
 )
 
 const (
@@ -46,5 +46,5 @@ func (deb *Deb) CheckDebsig(validKeys openpgp.EntityList, sigType string) (signe
 	control.Data.Seek(0, 0)
 	data.Data.Seek(0, 0)
 	signedData := io.MultiReader(binaryFlag.Data, control.Data, data.Data)
-	return openpgp.CheckDetachedSignature(validKeys, signedData, sig.Data)
+	return openpgp.CheckDetachedSignature(validKeys, signedData, sig.Data, nil)
 }
